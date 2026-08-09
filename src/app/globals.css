@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfdfd;
+  --foreground: #0f0f0f;
+  --muted: #6b6b6b;
+  --faint: #9a9a9a;
+  --band: #ececec;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-band: var(--band);
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #0f0f0f;
+  color: #fdfdfd;
+}
+
+/* Editorial display type — mirrors the reference: 400 weight, tight leading, -1.5% tracking */
+.display {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 0.94;
+}
+
+/* Hide the scrollbar of the mobile project carousel */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Blinking block cursor for the live-code backdrop */
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.code-cursor {
+  animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+/* Underline-on-hover for editorial links */
+.link-line {
+  position: relative;
+  display: inline-block;
+}
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Permanently underlined variant that retracts + redraws on hover */
+.link-line-static::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.link-line-static:hover::after {
+  animation: line-redraw 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes line-redraw {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  49% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  50% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
