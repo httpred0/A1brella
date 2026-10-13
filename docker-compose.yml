@@ -1,0 +1,11 @@
+services:
+  a1brella:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: a1brella-site
+    restart: always
+    ports:
+      - "127.0.0.1:3030:3000"
+    environment:
+      - NODE_ENV=production

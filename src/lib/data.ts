@@ -116,6 +116,7 @@ export const galleryProjects: Project[] = [
     description: "Generative identity for an ML research lab.",
     image: "/projects/scadufax.svg",
     ratio: "aspect-[4/3]",
+    href: "https://www.scadufax.online",
   },
   {
     number: "(03)",
